@@ -40,18 +40,40 @@ Cerberus = {
     "attack power": 30,
     "attacks": ["Bite", "Claw", "Roar"]
 }
+## create a function that will run the attack
+def Attack(attacker, defender):
+    print("Choose an attack:")
+    for i in range(len(attacker["attacks"])):
+        print(str(i + 1) + ". " + attacker["attacks"][i])
+    choice = int(input("Enter your choice: "))
+    attack = attacker["attacks"][choice - 1]
+    print(attacker["name"] + " used " + attack + "!")
+    defender["health"] -= attacker["attack power"]
+    print(defender["name"] + " has " + str(defender["health"]) + " health left.")
+    if defender["health"] > 0:
+        defender_attack = random.choice(defender["attacks"])
+        print(defender["name"] + " used " + defender_attack + "!")
+        attacker["health"] -= defender["attack power"]
+        print(attacker["name"] + " has " + str(attacker["health"]) + " health left.")
+    else:
+        print(defender["name"] + " has been defeated!")
+        defeat = True
 ## print the beginning first part of the story
 ## here Hercules fights the Nemean Lion
-print("The Nemean Lion is a ferocious beast with a hide so tough that no weapon can pierce it. You must defeat it with your bare hands!")
+## run a function that have Hercules fight the Nemean Lion
+def Nemean_Lion_Fight():
+    print("The Nemean Lion is a ferocious beast with a hide so tough that no weapon can pierce it. You must defeat it with your bare hands!")
+    while Hercules["health"] > 0 and Nemean_Lion["health"] > 0:
+        Attack(Hercules, Nemean_Lion)
 
 ## print the end of the first part of the story
-print("You have defeated the Nemean Lion!")
-
 ## run a function that increse Hercules' health by 20
 def Nemean_Lion_Hide():
-    Hercules["health"] += 20
-    print("Hercules' health is now " + str(Hercules["health"]))
-    print("You have earned the Nemean Lion's hide as a trophy!")
+    print("You have defeated the Nemean Lion!")
+    if Nemean_Lion["health"] <= 0:
+        Hercules["health"] += 20
+        print("Hercules' health is now " + str(Hercules["health"]))
+        print("You have earned the Nemean Lion's hide as a trophy!")
 
 ## print the second part of the story
 ## here Hercules fights the Lernaean Hydra
@@ -62,9 +84,10 @@ print("You have defeated the Lernaean Hydra!")
 
 ## run a function that increse Hercules' health by 20
 def Lernaean_Hydra_Blood():
-    Hercules["health"] += 20
-    print("Hercules' health is now " + str(Hercules["health"]))
-    print("You have earned the Lernaean Hydra's blood as a trophy!")
+    if Lernaean_Hydra["health"] <= 0:
+        Hercules["health"] += 20
+        print("Hercules' health is now " + str(Hercules["health"]))
+        print("You have earned the Lernaean Hydra's blood as a trophy!")
 
 ## print the beginning of the third part of the story
 ## here Hercules fights Cerberus
@@ -75,15 +98,7 @@ print("You have captured Cerberus!")
 
 ## print the end of the story
 print("You have brought Cerberus back to King Eurysthesus!\nYou have completed your tasks and are now the greatest of the Greek Heroes!\nYou have earned the hand of Princess Megara!")
-
-## run a function that increse Hercules' health by 20
-def Cerberus_Tongue():
-    Hercules["health"] += 20
-    print("Hercules' health is now " + str(Hercules["health"]))
-    print("You have earned Cerberus' tongue as a trophy!")
-
 ## create a function that will run the game
 def RunGame():
     Nemean_Lion_Hide()
     Lernaean_Hydra_Blood()
-    Cerberus_Tongue()
