@@ -29,15 +29,15 @@ Nemean_Lion = {
 
 Lernaean_Hydra = {
     "name": "Lernaean Hydra",
-    "health": 200,
-    "attack power": 20,
+    "health": 100,
+    "attack power": 10,
     "attacks": ["Bite", "Claw", "Roar"]
 }
 
 Cerberus = {
     "name": "Cerberus",
-    "health": 300,
-    "attack power": 30,
+    "health": 100,
+    "attack power": 10,
     "attacks": ["Bite", "Claw", "Roar"]
 }
 # creates a function that will print the story menu
@@ -46,8 +46,7 @@ Cerberus = {
 def Menu():
     print("1. Fight the Nemean Lion")
     print("2. Fight the Lernaean Hydra")
-    if Nemean_Lion_Hide == True and Lernaean_Hydra_Blood == True:
-        print("3. Capture Cerberus")
+    print("3. Fight Cerberus")
     choice = int(input("Enter your choice: "))
     if choice == 1:
         Nemean_Lion_Fight()
@@ -58,17 +57,16 @@ def Menu():
     else:
         print("Invalid choice. Try again.")
         Menu()
-
 # create a function that prints the attack menu
 
 
 def Attack_Menu():
+    print("---Attack Menu---")
     print("1. Punch")
     print("2. Kick")
     print("3. Headbutt")
     choice = int(input("Enter your choice: "))
     return choice
-
 # create a function that will run the attack
 
 
@@ -109,15 +107,9 @@ def Attack(attacker, defender):
             print(attacker["name"] + " has " +
                   str(attacker["health"]) + " health left!")
     if attacker["health"] <= 0:
-        print("You have died!")
-        print("Game Over!")
-        exit()
+        GameOver()
     elif defender["health"] <= 0:
         print(defender["name"] + " has died!")
-        return False
-
-# print the beginning first part of the story
-# here Hercules fights the Nemean Lion
 # run a function that will have Hercules fight the Nemean Lion
 
 
@@ -125,10 +117,8 @@ def Nemean_Lion_Fight():
     print("The Nemean Lion is a ferocious beast with a hide so tough that no weapon can pierce it. You must defeat it with your bare hands!")
     while Hercules["health"] > 0 and Nemean_Lion["health"] > 0:
         Attack(Hercules, Nemean_Lion)
-    if Attack(Hercules, Nemean_Lion) == False:
+    if Nemean_Lion["health"] <= 0:
         Nemean_Lion_Hide()
-
-# print the end of the first part of the story
 # run a function that increse Hercules' health by 20 and completes the Nemean Lion fight
 
 
@@ -138,13 +128,7 @@ def Nemean_Lion_Hide():
     print("You have increased your health by 20!")
     Hercules["health"] += 20
     print("You now have " + str(Hercules["health"]) + " health!")
-    print("You have completed the first task of King Eurysthesus!")
-    print("You have been given a new task!")
-    print("You must now defeat the Lernaean Hydra!")
     Menu()
-
-# print the second part of the story
-# here Hercules fights the Lernaean Hydra
 # run a function that have Hercules fight the Lernaean Hydra
 
 
@@ -152,10 +136,8 @@ def Lernaean_Hydra_Fight():
     print("The Lernaean Hydra is a monster with nine heads. You must defeat it with your bare hands!")
     while Hercules["health"] > 0 and Lernaean_Hydra["health"] > 0:
         Attack(Hercules, Lernaean_Hydra)
-    if Attack(Hercules, Lernaean_Hydra) == False:
+    if Lernaean_Hydra["health"] <= 0:
         Lernaean_Hydra_Blood()
-
-# print the end of the second part of the story
 # run a function that increse Hercules' health by 20 and completes the Lernaean Hydra fight
 
 
@@ -165,13 +147,7 @@ def Lernaean_Hydra_Blood():
     print("You have increased your health by 20!")
     Hercules["health"] += 20
     print("You now have " + str(Hercules["health"]) + " health!")
-    print("You have completed the second task of King Eurysthesus!")
-    print("You have been given a new task!")
-    print("You must now defeat Cerberus!")
     Menu()
-
-# print the beginning of the third part of the story
-# here Hercules fights Cerberus
 # run a function that have Hercules fight Cerberus
 
 
@@ -179,27 +155,31 @@ def Cerberus_Fight():
     print("Cerberus is the three-headed guard dog of the Underworld. You must defeat it with your bare hands!")
     while Hercules["health"] > 0 and Cerberus["health"] > 0:
         Attack(Hercules, Cerberus)
-    if Attack(Hercules, Cerberus) == False:
+    if Cerberus["health"] <= 0:
         Cerberus_Tail()
-
-# print the end of the third part of the story
-# run a function that completes the Cerberus fight and brings the story to an end
+# run a function that increases Hercules' health by 20 and completes the Cerberus fight
 
 
 def Cerberus_Tail():
     print("You have defeated Cerberus!")
     print("You have obtained Cerberus' tail!")
-    print("You have completed the third task of King Eurysthesus!")
-    print("You have completed all of King Eurysthesus' tasks!")
-    print("You have completed the story!")
-    print("You have won the game!")
-    Ending()
+    print("You have increased your health by 20!")
+    Hercules["health"] += 20
+    print("You now have " + str(Hercules["health"]) + " health!")
+    Menu()
+# run a function that only runs when Hercules' health is 0 or less
 
-# print the end of the story
-# run a function that will end the game
 
-def Ending():
-    print("King Eurysthesus stands in shock as you bring back Cerberus and the other trophies!\n\nYou have earned the hand of Princess Megara!\n\nYou have reached the end of the game!\nThanks for playing!")
+def GameOver():
+    print("You have died!")
+    print("Game Over!")
+# run a function that will only runs if Hercules kills all three monsters
+
+def YouWin():
+    print("King Eurysthesus stands in shock as you bring back Cerberus and the other trophies!")
+    print("You have earned the hand of Princess Megara!")
+    print("You Win!")
+    print("Thank you for playing!")
     exit()
 
 # create a function that will run the game
@@ -213,3 +193,6 @@ def RunGame():
     print("If you complete all three tasks, you will be rewarded with the hand of Princess Megara!")
     print("Good luck!")
     Menu()
+
+# run the game
+RunGame()
